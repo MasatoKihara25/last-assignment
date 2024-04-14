@@ -23,11 +23,8 @@ public class LureService {
     }
 
     public Lure findLure(Integer id) {
-        Optional<Lure> lure = lureMapper.findById(id);
-        if (lure.isPresent()) {
-            return lure.get();
-        } else {
-            throw new LureNotFoundException("Lure not found");
-        }
+        Optional<Lure> lure = this.lureMapper.findById(id);
+        return lure.orElseThrow(() -> new LureNotFoundException("lure not found"));
     }
+
 }
