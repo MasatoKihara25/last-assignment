@@ -1,10 +1,10 @@
 package com.example.lures;
 
-public class LuresSearchRequest {
+public class LureSearchRequest {
 
     private String contains;
 
-    public LuresSearchRequest(String contains) {
+    public LureSearchRequest(String contains) {
         this.contains = contains;
     }
 

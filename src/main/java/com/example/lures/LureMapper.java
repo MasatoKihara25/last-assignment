@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-public interface LuresMapper {
+public interface LureMapper {
 
     @Select("SELECT * FROM lures")
-    List<Lures> findAll();
+    List<Lure> findAll();
 
     @Select("SELECT * FROM lures WHERE product LIKE CONCAT('%',#{keyword},'%')")
-    List<Lures> findLures(String keyword);
+    List<Lure> findLures(String keyword);
 
 }

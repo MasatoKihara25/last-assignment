@@ -1,6 +1,6 @@
 package com.example.lures;
 
-public class Lures {
+public class Lure {
 
     private Integer id;
 
@@ -12,7 +12,7 @@ public class Lures {
 
     private double weight;
 
-    public Lures(Integer id, String product, String company, double size, double weight) {
+    public Lure(Integer id, String product, String company, double size, double weight) {
         this.id = id;
         this.product = product;
         this.company = company;
