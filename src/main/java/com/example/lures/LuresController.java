@@ -13,14 +13,10 @@ public class LuresController {
     public LuresController(LuresService luresService) {
         this.luresService = luresService;
     }
-    
+
     @GetMapping("/lures")
     public List<Lures> findByLures(LuresSearchRequest luresSearchRequest) {
         List<Lures> lures = luresService.findLures(luresSearchRequest.getContains());
-        if (luresSearchRequest.getContains() != null) {
-            return lures;
-        } else {
-            return luresService.findAll();
-        }
+        return lures;
     }
 }

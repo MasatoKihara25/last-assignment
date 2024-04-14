@@ -13,13 +13,11 @@ public class LuresService {
         this.luresMapper = luresMapper;
     }
 
-    public List<Lures> findAll() {
-
-        return luresMapper.findAll();
-    }
-
     public List<Lures> findLures(String keyword) {
-        return luresMapper.findLures(keyword);
+        if (keyword != null) {
+            return luresMapper.findLures(keyword);
+        } else {
+            return luresMapper.findAll();
+        }
     }
-
 }
