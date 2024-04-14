@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LuresApplication {
+public class LureApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LuresApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LureApplication.class, args);
+    }
 
 }
