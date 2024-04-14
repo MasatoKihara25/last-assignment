@@ -14,5 +14,4 @@ public interface LuresMapper {
     @Select("SELECT * FROM lures WHERE product LIKE CONCAT('%',#{keyword},'%')")
     List<Lures> findLures(String keyword);
 
-
 }
