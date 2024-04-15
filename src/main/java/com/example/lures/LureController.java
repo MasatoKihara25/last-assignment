@@ -1,9 +1,10 @@
 package com.example.lures;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -24,5 +25,13 @@ public class LureController {
     @GetMapping("/lures/{id}")
     public Lure findlure(@PathVariable("id") Integer id) {
         return lureService.findLure(id);
+    }
+
+    @PostMapping("/lures")
+    public ResponseEntity<LureResponse> insert(@RequestBody LureRequest lureRequest, UriComponentsBuilder uriBuilder) {
+        Lure lure = lureService.insert(lureRequest.getId(), lureRequest.getProduct(), lureRequest.getCompany(), lureRequest.getSize(), lureRequest.getWeight());
+        URI location = uriBuilder.path("/lures/{id}").buildAndExpand(lure.getId()).toUri();
+        LureResponse body = new LureResponse("created");
+        return ResponseEntity.created(location).body(body);
     }
 }
