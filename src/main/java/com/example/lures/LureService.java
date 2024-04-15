@@ -3,6 +3,7 @@ package com.example.lures;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LureService {
@@ -20,4 +21,10 @@ public class LureService {
             return lureMapper.findAll();
         }
     }
+
+    public Lure findLure(Integer id) {
+        Optional<Lure> lure = this.lureMapper.findById(id);
+        return lure.orElseThrow(() -> new LureNotFoundException("lure not found"));
+    }
+
 }

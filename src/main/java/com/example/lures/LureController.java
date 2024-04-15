@@ -1,6 +1,7 @@
 package com.example.lures;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class LureController {
     public List<Lure> findByLures(LureSearchRequest lureSearchRequest) {
         List<Lure> lures = lureService.findLure(lureSearchRequest.getContains());
         return lures;
+    }
+
+    @GetMapping("/lures/{id}")
+    public Lure findlure(@PathVariable("id") Integer id) {
+        return lureService.findLure(id);
     }
 }
