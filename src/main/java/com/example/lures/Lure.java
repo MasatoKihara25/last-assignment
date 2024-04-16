@@ -20,6 +20,14 @@ public class Lure {
         this.weight = weight;
     }
 
+    public Lure(String product, String company, double size, double weight) {
+        this.id = null;
+        this.product = product;
+        this.company = company;
+        this.size = size;
+        this.weight = weight;
+    }
+
     public Integer getId() {
         return id;
     }
