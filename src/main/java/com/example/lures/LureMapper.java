@@ -23,4 +23,8 @@ public interface LureMapper {
     @Insert("INSERT INTO lures (product, company, size, weight) VALUES (#{product}, #{company}, #{size}, #{weight})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Lure lure);
+
+    @Select("SELECT * FROM lures WHERE product = #{product}")
+    List<Lure> diplicatedLure(String product);
+
 }

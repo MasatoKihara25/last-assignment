@@ -1,6 +1,7 @@
 package com.example.lures;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class LureController {
     }
 
     @PostMapping("/lures")
-    public ResponseEntity<LureResponse> insert(@RequestBody LureRequest lureRequest, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<LureResponse> insert(@RequestBody @Validated LureRequest lureRequest, UriComponentsBuilder uriBuilder) {
         Lure lure = lureService.insert(lureRequest.getProduct(), lureRequest.getCompany(), lureRequest.getSize(), lureRequest.getWeight());
         URI location = uriBuilder.path("/lures/{id}").buildAndExpand(lure.getId()).toUri();
         LureResponse body = new LureResponse("created");

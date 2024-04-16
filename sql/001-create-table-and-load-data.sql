@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS lures;
 
 CREATE TABLE lures (
   id int unsigned AUTO_INCREMENT,
-  product VARCHAR(100) NOT NULL,
+  product VARCHAR(100) NOT NULL UNIQUE,
   company VARCHAR(100) NOT NULL,
   size double NOT NULL,
   weight double NOT NULL,
