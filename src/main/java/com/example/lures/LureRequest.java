@@ -1,15 +1,22 @@
 package com.example.lures;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
 public class LureRequest {
 
     private Integer id;
 
+    @NotBlank
     private String product;
 
+    @NotBlank
     private String company;
 
+    @Positive
     private double size;
 
+    @Positive
     private double weight;
 
     public LureRequest(Integer id, String product, String company, double size, double weight) {
