@@ -25,6 +25,6 @@ public interface LureMapper {
     void insert(Lure lure);
 
     @Select("SELECT * FROM lures WHERE product = #{product}")
-    List<Lure> diplicatedLure(String product);
+    List<Lure> findByLure(String product);
 
 }
