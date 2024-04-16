@@ -27,4 +27,9 @@ public class LureService {
         return lure.orElseThrow(() -> new LureNotFoundException("lure not found"));
     }
 
+    public Lure insert(String product, String company, double size, double weight) {
+        Lure lure = new Lure(product, company, size, weight);
+        lureMapper.insert(lure);
+        return lure;
+    }
 }

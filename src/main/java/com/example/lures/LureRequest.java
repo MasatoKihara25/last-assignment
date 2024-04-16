@@ -1,6 +1,6 @@
 package com.example.lures;
 
-public class Lure {
+public class LureRequest {
 
     private Integer id;
 
@@ -12,16 +12,8 @@ public class Lure {
 
     private double weight;
 
-    public Lure(Integer id, String product, String company, double size, double weight) {
+    public LureRequest(Integer id, String product, String company, double size, double weight) {
         this.id = id;
-        this.product = product;
-        this.company = company;
-        this.size = size;
-        this.weight = weight;
-    }
-
-    public Lure(String product, String company, double size, double weight) {
-        this.id = null;
         this.product = product;
         this.company = company;
         this.size = size;
