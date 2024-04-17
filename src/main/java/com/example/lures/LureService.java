@@ -40,6 +40,12 @@ public class LureService {
         Optional<Lure> optionalLure = this.lureMapper.findById(id);
         Lure lure = optionalLure.orElseThrow(() -> new LureNotFoundException("Lure not found"));
 
+        if (lure.getProduct().equals(product)) {
+            return lure;
+        } else if (!lureMapper.findByLure(product).isEmpty()) {
+            throw new LureDuplicatedException("There is duplicated data!");
+        }
+
         lure.setProduct(product);
         lure.setCompany(company);
         lure.setSize(size);
