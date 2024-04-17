@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +77,16 @@ public class CustomExceptionHandler {
                 "message", e.getMessage(),
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        List<Map<String, String>> errors = new ArrayList<>();
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "そのルアーは他のIDで登録されています");
+        errors.add(error);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT, "Duplicate entry", errors);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 }
 
