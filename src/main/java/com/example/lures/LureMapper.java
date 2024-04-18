@@ -1,5 +1,6 @@
 package com.example.lures;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -28,7 +29,9 @@ public interface LureMapper {
     @Select("SELECT * FROM lures WHERE product = #{product}")
     Optional<Lure> findByLure(String product);
 
-
     @Update("UPDATE lures SET product = #{product}, company = #{company}, size = #{size}, weight = #{weight} WHERE id = #{id}")
     void update(Lure lure);
+
+    @Delete("DELETE FROM lures WHERE id = #{id}")
+    void delete(Lure lure);
 }

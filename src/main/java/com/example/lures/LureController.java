@@ -2,6 +2,7 @@ package com.example.lures;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,13 @@ public class LureController {
     public ResponseEntity<LureResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated LureRequest lureRequest) {
         Lure lure = lureService.update(id, lureRequest.getProduct(), lureRequest.getCompany(), lureRequest.getSize(), lureRequest.getWeight());
         LureResponse body = new LureResponse("Lure updated");
+        return ResponseEntity.ok(body);
+    }
+
+    @DeleteMapping("/lures/{id}")
+    public ResponseEntity<LureResponse> delete(@PathVariable("id") Integer id) {
+        Lure lure = lureService.delete(id);
+        LureResponse body = new LureResponse("music delete");
         return ResponseEntity.ok(body);
     }
 }
