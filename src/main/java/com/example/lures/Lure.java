@@ -47,4 +47,24 @@ public class Lure {
     public double getWeight() {
         return weight;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }

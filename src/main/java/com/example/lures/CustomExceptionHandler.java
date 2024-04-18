@@ -71,12 +71,10 @@ public class CustomExceptionHandler {
             LureDuplicatedException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
-                "status", String.valueOf(HttpStatus.BAD_REQUEST.value()),
-                "error", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "status", String.valueOf(HttpStatus.CONFLICT.value()),
+                "error", HttpStatus.CONFLICT.getReasonPhrase(),
                 "message", e.getMessage(),
                 "path", request.getRequestURI());
-        return new ResponseEntity(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(body, HttpStatus.CONFLICT);
     }
 }
-
-

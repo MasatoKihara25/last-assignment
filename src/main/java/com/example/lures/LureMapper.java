@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,9 @@ public interface LureMapper {
     void insert(Lure lure);
 
     @Select("SELECT * FROM lures WHERE product = #{product}")
-    List<Lure> findByLure(String product);
+    Optional<Lure> findByLure(String product);
 
+
+    @Update("UPDATE lures SET product = #{product}, company = #{company}, size = #{size}, weight = #{weight} WHERE id = #{id}")
+    void update(Lure lure);
 }

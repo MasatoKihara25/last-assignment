@@ -3,6 +3,7 @@ package com.example.lures;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,12 @@ public class LureController {
         URI location = uriBuilder.path("/lures/{id}").buildAndExpand(lure.getId()).toUri();
         LureResponse body = new LureResponse("created");
         return ResponseEntity.created(location).body(body);
+    }
+
+    @PatchMapping("/lures/{id}")
+    public ResponseEntity<LureResponse> update(@PathVariable("id") Integer id, @RequestBody @Validated LureRequest lureRequest) {
+        Lure lure = lureService.update(id, lureRequest.getProduct(), lureRequest.getCompany(), lureRequest.getSize(), lureRequest.getWeight());
+        LureResponse body = new LureResponse("Lure updated");
+        return ResponseEntity.ok(body);
     }
 }

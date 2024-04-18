@@ -35,4 +35,22 @@ public class LureService {
         lureMapper.insert(lure);
         return lure;
     }
+
+    public Lure update(Integer id, String product, String company, double size, double weight) {
+        Optional<Lure> optionalLure = this.lureMapper.findById(id);
+        Lure lure = optionalLure.orElseThrow(() -> new LureNotFoundException("Lure not found"));
+
+        Optional<Lure> existingLure = lureMapper.findByLure(product);
+        if (existingLure.isPresent() && existingLure.stream().noneMatch(l -> l.getId().equals(id))) {
+            throw new LureDuplicatedException("There is duplicated data!");
+        }
+
+        lure.setProduct(product);
+        lure.setCompany(company);
+        lure.setSize(size);
+        lure.setWeight(weight);
+
+        lureMapper.update(lure);
+        return lure;
+    }
 }
