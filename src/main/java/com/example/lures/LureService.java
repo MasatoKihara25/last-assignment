@@ -56,7 +56,7 @@ public class LureService {
 
     public Lure delete(Integer id) {
         Optional<Lure> optionalMusic = lureMapper.findById(id);
-        Lure lure = optionalMusic.orElseThrow(() -> new LureNotFoundException("music not found"));
+        Lure lure = optionalMusic.orElseThrow(() -> new LureNotFoundException("Lure not found!!"));
         lureMapper.delete(lure);
         return lure;
     }
