@@ -40,9 +40,8 @@ public class LureService {
         Optional<Lure> optionalLure = this.lureMapper.findById(id);
         Lure lure = optionalLure.orElseThrow(() -> new LureNotFoundException("Lure not found"));
 
-        if (lure.getProduct().equals(product)) {
-            return lure;
-        } else if (!lureMapper.findByLure(product).isEmpty()) {
+        List<Lure> existingLureId = lureMapper.findByLure(product);
+        if (!existingLureId.isEmpty() && !existingLureId.stream().anyMatch(l -> l.getId().equals(id))) {
             throw new LureDuplicatedException("There is duplicated data!");
         }
 
