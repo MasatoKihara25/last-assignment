@@ -26,7 +26,8 @@ public interface LureMapper {
     void insert(Lure lure);
 
     @Select("SELECT * FROM lures WHERE product = #{product}")
-    List<Lure> findByLure(String product);
+    Optional<Lure> findByLure(String product);
+
 
     @Update("UPDATE lures SET product = #{product}, company = #{company}, size = #{size}, weight = #{weight} WHERE id = #{id}")
     void update(Lure lure);
