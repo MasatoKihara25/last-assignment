@@ -43,6 +43,14 @@ class LureServiceTest {
     }
 
     @Test
+    public void 存在するルアーのIDを指定した場合に該当するルアーが返されること() {
+        doReturn(Optional.of(new Lure(1, "Balaam300", "Madness", 300, 168))).when(lureMapper).findById(1);
+        Lure actual = lureService.findLure(1);
+        assertThat(actual).isEqualTo(new Lure(1, "Balaam300", "Madness", 300, 168));
+        verify(lureMapper, times(1)).findById(1);
+    }
+
+    @Test
     public void 存在しないルアーのIDを指定した場合にエラーが返されること() {
         doReturn(Optional.empty()).when(lureMapper).findById(99);
         assertThatThrownBy(() -> {
@@ -50,5 +58,6 @@ class LureServiceTest {
         }).isInstanceOf(LureNotFoundException.class);
         verify(lureMapper, times(1)).findById(99);
     }
+
 
 }
