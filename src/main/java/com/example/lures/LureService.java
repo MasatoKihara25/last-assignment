@@ -60,4 +60,5 @@ public class LureService {
         lureMapper.delete(lure);
         return lure;
     }
+
 }
