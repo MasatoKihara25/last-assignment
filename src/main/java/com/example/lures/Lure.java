@@ -1,7 +1,5 @@
 package com.example.lures;
 
-import java.util.Objects;
-
 public class Lure {
 
     private Integer id;
@@ -68,22 +66,5 @@ public class Lure {
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Lure lure = (Lure) o;
-        return Objects.equals(id, lure.id) &&
-                Objects.equals(product, lure.product) &&
-                Objects.equals(company, lure.company) &&
-                Objects.equals(size, lure.size) &&
-                Objects.equals(weight, lure.weight);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, product, company, size, weight);
     }
 }
