@@ -34,7 +34,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void URLにクエリ文字列を指定した場合に指定したクエリ文字列を含むルアーが返されること() {
+    public void 引数に指定した文字列を含むルアーの情報が返されること() {
         List<Lure> expectedLure = List.of(new Lure(1, "Balaam300", "Madness", 300, 168));
         doReturn(expectedLure).when(lureMapper).findLures("B");
         List<Lure> actual = lureService.findLure("B");
