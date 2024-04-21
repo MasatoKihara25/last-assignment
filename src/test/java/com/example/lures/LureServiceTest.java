@@ -62,7 +62,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void 新しいルアーを登録すること() {
+    public void 新しいルアーを登録できること() {
 
         doReturn(Optional.empty()).when(lureMapper).findByLure("Balaam300");
         Lure actual = lureService.insert("Balaam300", "Madness", 300, 168);
@@ -73,7 +73,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void 新しいルアーを登録する時に製品名の重複がある場合は例外処理が返されること() {
+    public void 新しいルアーを登録する時に製品名の重複がある場合は例外をスローすること() {
 
         doReturn(Optional.of(new Lure("Balaam300", "Madness", 300, 168))).when(lureMapper).findByLure("Balaam300");
 
@@ -84,7 +84,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void 既存のルアーを更新すること() {
+    public void 既存のルアーを更新できること() {
 
         Lure lure = new Lure(1, "Balaam300", "Madness", 300, 168);
         doReturn(Optional.of(lure)).when(lureMapper).findById(1);
@@ -98,7 +98,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void ルアーを更新する時に指定したIDが見つからないこと() {
+    public void ルアーを更新する時に指定したIDが見つからない場合は例外をスローすること() {
 
         doReturn(Optional.empty()).when(lureMapper).findById(99);
 
@@ -108,7 +108,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void ルアーを更新する時に製品名が重複していること() {
+    public void ルアーを更新する時に製品名が重複している場合は例外をスローすること() {
 
         Lure updatingMusic = new Lure(1, "Balaam300", "Madness", 300, 168);
         doReturn(Optional.of(updatingMusic)).when(lureMapper).findById(1);
@@ -122,7 +122,7 @@ class LureServiceTest {
     }
 
     @Test
-    public void IDを指定して楽曲を削除すること() {
+    public void IDを指定してルアーを削除できること() {
         Lure lure = new Lure(1, "Balaam300", "Madness", 300, 168);
         doReturn(Optional.of(lure)).when(lureMapper).findById(1);
 
