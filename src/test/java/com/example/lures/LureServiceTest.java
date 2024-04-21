@@ -11,6 +11,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,5 +61,74 @@ class LureServiceTest {
         verify(lureMapper, times(1)).findById(99);
     }
 
+    @Test
+    public void 新しいルアーを登録できること() {
+
+        doReturn(Optional.empty()).when(lureMapper).findByLure("Balaam300");
+        Lure actual = lureService.insert("Balaam300", "Madness", 300, 168);
+
+        assertNotNull(actual);
+        assertThat(actual).isEqualTo(new Lure("Balaam300", "Madness", 300, 168));
+        verify(lureMapper, times(1)).insert(any(Lure.class));
+    }
+
+    @Test
+    public void 新しいルアーを登録する時に製品名の重複がある場合は例外をスローすること() {
+
+        doReturn(Optional.of(new Lure("Balaam300", "Madness", 300, 168))).when(lureMapper).findByLure("Balaam300");
+
+        assertThatThrownBy(() -> {
+            lureService.insert("Balaam300", "Madness", 300, 168);
+        }).isInstanceOf(LureDuplicatedException.class);
+        verify(lureMapper, times(1)).findByLure("Balaam300");
+    }
+
+    @Test
+    public void 既存のルアーを更新できること() {
+
+        Lure lure = new Lure(1, "Balaam300", "Madness", 300, 168);
+        doReturn(Optional.of(lure)).when(lureMapper).findById(1);
+        doReturn(Optional.empty()).when(lureMapper).findByLure("Balaam300");
+
+        Lure actual = lureService.update(1, "Balaam300", "Madness", 300, 168);
+
+        assertNotNull(actual);
+        assertThat(actual).isEqualTo(new Lure(1, "Balaam300", "Madness", 300, 168));
+        verify(lureMapper).update(lure);
+    }
+
+    @Test
+    public void ルアーを更新する時に指定したIDが見つからない場合は例外をスローすること() {
+
+        doReturn(Optional.empty()).when(lureMapper).findById(99);
+
+        assertThatThrownBy(() -> {
+            lureService.update(99, "Balaam300", "Madness", 300, 168);
+        }).isInstanceOf(LureNotFoundException.class);
+    }
+
+    @Test
+    public void ルアーを更新する時に製品名が重複している場合は例外をスローすること() {
+
+        Lure updatingMusic = new Lure(1, "Balaam300", "Madness", 300, 168);
+        doReturn(Optional.of(updatingMusic)).when(lureMapper).findById(1);
+
+        Lure duplicatedLure = new Lure(2, "Balaam300", "Madness", 300, 168);
+        doReturn(Optional.of(duplicatedLure)).when(lureMapper).findByLure("Balaam300");
+
+        assertThatThrownBy(() -> {
+            lureService.update(1, "Balaam300", "Madness", 300, 168);
+        }).isInstanceOf(LureDuplicatedException.class);
+    }
+
+    @Test
+    public void IDを指定してルアーを削除できること() {
+        Lure lure = new Lure(1, "Balaam300", "Madness", 300, 168);
+        doReturn(Optional.of(lure)).when(lureMapper).findById(1);
+
+        Lure actual = lureService.delete(1);
+
+        assertThat(actual).isEqualTo(new Lure(1, "Balaam300", "Madness", 300, 168));
+    }
 
 }
