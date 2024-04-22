@@ -52,7 +52,7 @@ public class LureController {
     @DeleteMapping("/lures/{id}")
     public ResponseEntity<LureResponse> delete(@PathVariable("id") Integer id) {
         Lure lure = lureService.delete(id);
-        LureResponse body = new LureResponse("music delete");
+        LureResponse body = new LureResponse("lure delete");
         return ResponseEntity.ok(body);
     }
 }
