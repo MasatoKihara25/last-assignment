@@ -1,0 +1,16 @@
+lures:
+  - id: 1
+    product: "Balaam300"
+    company: "Madness"
+    size: 300
+    weight: 168
+  - id: 2
+    product: "JointedCRAW178"
+    company: "GANCRAFT"
+    size: 178
+    weight: 56
+  - id: 3
+    product: "SILENTKILLER175"
+    company: "deps"
+    size: 175
+    weight: 70
