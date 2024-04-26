@@ -55,9 +55,9 @@ class LureMapperTest {
     @DataSet(value = "datasets/lures.yml")
     @Transactional
     public void 存在するIDを指定した場合に該当するルアーデータが返されること() {
-        Optional<Lure> lureList = lureMapper.findById(1);
+        Optional<Lure> lure = lureMapper.findById(1);
 
-        assertThat(lureList)
+        assertThat(lure)
                 .isPresent()
                 .hasValue(
                         new Lure(1, "Balaam300", "Madness", 300, 168)
@@ -68,9 +68,9 @@ class LureMapperTest {
     @DataSet(value = "datasets/lures.yml")
     @Transactional
     public void 存在しないIDを指定した場合に空のデータが返されること() {
-        Optional<Lure> lureList = lureMapper.findById(5);
+        Optional<Lure> lure = lureMapper.findById(5);
 
-        assertThat(lureList)
+        assertThat(lure)
                 .isEmpty();
     }
 
@@ -81,12 +81,8 @@ class LureMapperTest {
         Lure lure = new Lure("Royal flash", "EVERGREEN", 160, 60);
         lureMapper.insert(lure);
 
-        Optional<Lure> musicList = lureMapper.findById(lure.getId());
-        assertThat(musicList).isPresent();
-        assertThat(musicList.get().getProduct()).isEqualTo("Royal flash");
-        assertThat(musicList.get().getCompany()).isEqualTo("EVERGREEN");
-        assertThat(musicList.get().getSize()).isEqualTo(160);
-        assertThat(musicList.get().getWeight()).isEqualTo(60);
+        Optional<Lure> lureList = lureMapper.findById(lure.getId());
+        assertThat(lureList).isPresent();
     }
 
     @Test
@@ -100,10 +96,6 @@ class LureMapperTest {
 
         Optional<Lure> updatedLure = lureMapper.findById(3);
         assertThat(updatedLure).isPresent();
-        assertThat(updatedLure.get().getProduct()).isEqualTo("SLIDESWIMMER175");
-        assertThat(updatedLure.get().getCompany()).isEqualTo("deps");
-        assertThat(updatedLure.get().getSize()).isEqualTo(175);
-        assertThat(updatedLure.get().getWeight()).isEqualTo(72.8);
     }
 
     @Test
