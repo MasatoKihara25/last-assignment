@@ -256,7 +256,7 @@ public class LureRestApiIntegrationTest {
     @DataSet(value = "datasets/lures.yml")
     @ExpectedDataSet(value = "datasets/deletedLures.yml", ignoreCols = "id")
     @Transactional
-    void ルアーデータを削除する場合() throws Exception {
+    void 存在するIDを指定した場合に該当するルアーデータを削除できること() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/lures/4"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
@@ -264,5 +264,18 @@ public class LureRestApiIntegrationTest {
                               "message": "lure delete"
                         }
                         """));
+    }
+
+    @Test
+    @DataSet(value = "datasets/lures.yml")
+    @Transactional
+    void 既存のルアーデータを削除する時に指定したIDが存在しない場合に例外が返されること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/lures/5"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("404"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Lure not found!!"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/lures/5"));
     }
 }
